@@ -10,16 +10,18 @@ function button_style(temp) {
 				var buttonlayer = document.createElement('button');
 					buttonlayer.setAttribute('class', 'layers');
 					buttonlayer.innerHTML = 'Point';
-					console.log(temp);
 
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", onClick);
-					
-				function onClick(){
-				 if (temp == 'Point' || temp == 'MultiPoint' )
-					document.getElementById("myPoint").classList.toggle("show");	
-					}
+					buttonlayer.addEventListener("click", function (){
+						if (temp == 'Point' || temp == 'MultiPoint' )
+						{	$('#myPoint').css('display','block');
+						    $('#myLine').css('display','none');
+						    $('#myPolygon').css('display','none');     
+						}		
+						else 
+							alert ("add a GeoJSON or GML");
+			       });			
 				i++;
 					}
 				break;
@@ -33,13 +35,16 @@ function button_style(temp) {
 
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", onClick);
-				function onClick(){
+					buttonlayer.addEventListener("click", function (){
 						if ( temp == 'LineString' || temp == 'MultiLineString')
-							document.getElementById("myLine").classList.toggle("show");
+						{    $('#myPoint').css('display','none');
+							 $('#myLine').css('display','block');
+							 $('#myPolygon').css('display','none');
+						}							 
 						else 
 							alert ("add a GeoJSON or GML");
-						}			
+					});
+							
 					i++;
 					}
 				break;
@@ -53,14 +58,15 @@ function button_style(temp) {
 
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", onClick);
-					
-					function onClick(){
+					buttonlayer.addEventListener("click", function (){
 					if ( temp == 'MultiPolygon' || temp == 'Polygon' ) 
-						document.getElementById("myPolygon").classList.toggle("show");
+					{        $('#myPoint').css('display','none');
+							 $('#myLine').css('display','none');
+							 $('#myPolygon').css('display','block');   
+				    } 
 					else 
 						alert ("add a GeoJSON or GML");
-						}
+						});				
 					i++;
 					}
 				break;
@@ -74,7 +80,7 @@ function button_style(temp) {
 			'Point': new ol.style.Style({
 				image: new ol.style.Circle({
 				fill: new ol.style.Fill({
-					color: 'rgba(255,255,0,0.5)'
+					color: 'yellow'
 						}),
 				radius: 5,
 				stroke: new ol.style.Stroke({
@@ -117,22 +123,22 @@ function button_style(temp) {
 						})
 					}),
 			'MultiPolygon': new ol.style.Style({
-				fill: new ol.style.Fill({
-					color: 'rgba(0,0,255,0.5)'
-				}),
+				fill: new ol.style.FillPattern({
+					pattern: $('#pselect'),
+					color: $("#color").val(),
+					
+					 
+					}),
 				stroke: new ol.style.Stroke({
-				color: '#00f',
-				width: 1
+				color: $ ("#bg").val(),
+				width: $("#size").val()
 						})
 					})
 				};
 
 // Style Function => This is the link between the GeoJSON file and the default style 			  
-	var styleFunction = function(feature, resolution) {
-		var buttonText = null;
-			buttonText = feature.getGeometry().getType();
-			button_style(buttonText);
-		return defaultStyle[buttonText];
+	var styleFunction = function(feature, resolution) {			 
+		return defaultStyle[feature.getGeometry().getType()];
 	}; 
 		
 //Drag and drop Function => allows the map to load the given extensions	
@@ -166,7 +172,7 @@ function button_style(temp) {
 //  Drag and Drop interaction Function => describes how to respond once the file is dragged and dropped   
 	dragAndDropInteraction.on('addfeatures', function(event) {
 		i = 1;
-	
+	    button_style(event.features[0].getGeometry().getType()); // Creates a button
         var vectorSource = new ol.source.Vector({
 			features: event.features
 			});
@@ -176,8 +182,63 @@ function button_style(temp) {
 			}));
         map.getView().fit(
             vectorSource.getExtent(),(map.getSize())); 
-		
+
+
 	});
+// Function to call the pattern and the Refresh function: 
+
+var refreh;
+						
+		$(window).load (function()
+		{	// AddChar patterns
+			ol.style.FillPattern.addPattern ("copy (char pattern)", { char:"©" });
+			ol.style.FillPattern.addPattern ("bug (fontawesome)", { char:'\uf188', size:12, font:"10px FontAwesome" });
+			ol.style.FillPattern.addPattern ("smiley (width angle)", { char:'\uf118', size:20, angle:true, font:"15px FontAwesome" });
+
+			// Popup
+			$("#select").click(function()
+			{	$("#pselect").toggle();
+			});
+
+		var pat = "hatch"
+		var spattern = $("#pselect");
+		for (var i in ol.style.FillPattern.prototype.patterns)
+		{	var p = new ol.style.FillPattern({ pattern:i })
+			$("<div>").attr('title',i)
+			.css("background-image",'url("'+p.getImage().toDataURL()+'")')
+			.click(function(){ pat = $(this).attr("title"); refresh(); })
+			.appendTo(spattern);
+							}
+			var p = new ol.style.FillPattern({ image: new ol.style.Icon({ src : 'pattern.png' }) });
+			$("<div>").attr('title','Image (PNG)')
+				.css("background-image",'url("pattern.png")')
+				.click(function(){ pat = $(this).attr("title"); refresh(); })
+				.appendTo(spattern);					
+					 
+			function refresh() {
+				debugger;
+				$('#pselect').hide();
+				var p = new ol.style.FillPattern(
+						{	pattern: pat,
+							ratio: 2,
+							color: '#000',
+							size: Number($("#size").val()),
+							spacing: Number($("#spacing").val()),
+							angle: Number($("#angle").val())
+						});
+			$("#select").css('background-image', 'url('+p.getImage().toDataURL()+')'); 
+				$('#color')
+				
+			};		 
+
+					
+					// this part has been removed
+					//	vector.getSource().addFeature(new ol.Feature(new ol.geom.Polygon() ) );
+					debugger;
+					refresh();
+						});
+		
+
 
 // This is the function for the transparency scrollbar 
 		$(document).ready(function(e) {
@@ -195,29 +256,3 @@ function button_style(temp) {
 				$("").css("opacity",this.value);  // this is where we'll link the layer to change the transparency for the line layaer
 			});
 		});
-		
-		// Get the popup
-		var Popup = document.getElementById('HelpPopup');
-
-		// Get the button that opens the popup
-		var btn = document.getElementById("HelpButton");
-
-		// Get the <span> element that closes the popup
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks the button, open the popup
-		btn.onclick = function() {
-		Popup.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the popup
-		span.onclick = function() {
-		Popup.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the popup, close it
-		window.onclick = function(event) {
-		if (event.target == Popup) {
-			Popup.style.display = "none";
-		}
-		}
