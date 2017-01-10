@@ -43,15 +43,15 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-/* Links inside the dropdown */
+/* Links inside the dropdown 
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
-
-/* Change color of dropdown links on hover */
+*/
+/* Change color of dropdown links on hover 
 .dropdown-content a:hover {
 	background-color: rgba(0, 191, 255, 0.3);
 	padding: 1px;
@@ -59,7 +59,7 @@
 	width: 150px;
 	height: 200px;
 
-}
+}*/
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -99,3 +99,65 @@
 		#pselect > div:hover
 		{	border-color: red;
 		}
+/* Popup (background) */
+.Popup {
+    display: none; /* Hidden by default */
+	position: relative; /* Stay in place */
+	overflow: auto; /* Enable scroll if needed */
+    padding-bottom: 0px; /* Location of the box */
+	padding-left:0px;
+	float:right;
+    bottom:160px;
+	right:15px;
+    width: 220px; /* Full width */
+    height: 150px; /* Full height */
+    
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Popup-content*/
+.Popup-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.Help{
+	background-color: #5D7CCF;
+    border-color: white;
+    color: white;
+    text-align: center;
+	font-weight: bold;
+    text-decoration: none;
+    font-size: 19px;
+    margin: 4px 2px;
+    cursor: pointer;
+	position:relative;
+	float: right;
+	
+   
+}
+a {
+    color: #5874BF;
+    text-decoration: none;
+}
+a:hover {
+    color: #112763;
+}
