@@ -8,157 +8,244 @@
 		<script type="text/javascript" src="js/fillpatternstyle.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" type="text/css" />
-		
+
 		<title>OpenLayers 3</title>
-		
+
 	</head>
-	
+
 	<body>
-		<table> 
+
+		<table>
 			<tr>
 				<td><img src="assets/logo.png" height="80" width="80"></td>
 				<td><h1>GeoVogatic</h1></td>
 			</tr>
-		</table>	
+		</table>
+		<!-- Adding the map -->
 		<div id="map" class="map"></div>
 		
+		<!-- Adding help buttonn -->
+		<button id="HelpButton" class = "Help">?</button>
+		<!-- Popup -->
+		<div id="HelpPopup" class="Popup">
+			<!-- Popup-content -->
+			<div class="Popup-content">
+				<span class="close">×</span>
+				<h1 style = "font-size:24px;">Introduction</h1>
+				<p style = "font-size:18px;">This help file was written to show users the procedure, options and capabilities of the assisted styling application in Open Layers 3, created by Geovogatic.</p>
+				<h2 style = "font-size:24px;">How it works</h2>
+				<p style = "font-size:18px;">A new button/layer appears whenever a file is dragged and dropped over the interface. Clicking on this layer opens a pop-up menu with the designated styling options for that layer depending on geometry type. This application supports point, line and polygon geometry types. <br><br>
+				Below are the geometries and the styling options (what can be changed) associated to each of them.<br><br>
+				Point 	: Size, fill colour, outline colour and thickness, it can also be set to transparent<br>
+				Line 	: Thickness, colour and can also be set to transparent<br>
+				Polygon : Border thickness, border colour, fill colour, and transparent option </p>
+				<h3 style = "font-size:24px;">Important Note</h3>
+				<p style = "font-size:18px;">Only default OL3 geographic file formats are supported. Information about these formats can be found on the OL3 website.</p>
+
+			</div>
+
+		</div>
+		
+		
+		<!-- drop down menu for the buttons -->
 		<div id="dropdown" class="dropdown">
-		 
 			<div id="myPolygon" class="dropdown-content" style="min-width:300px" >
-			<h2 align= "left" >Polygon</h2>
+			<table> <tr width="100%">
+			<td width="80%"> <h2 align= "left" >Polygon</h2> </td>
+			<td width="15%"> <a href="#"  align="right" onclick="hide('myPolygon')">Close</a> </td> <br>
+			</tr></table>
+			<button onclick="javascript:updateStyle();" value="bye" />
 			<ul>
-			<li>
-				Pattern: <div id="select"></div>
-				<div id="pselect"></div>
-			</li>
+
 			<li>
 				<label>Color: </label>
-				<select id="color"  onchange="refresh()">
-					<option value="Pink">Pink</option>
-					<option value="rgba(0,0,0,0)",>transparent</option>
-					<option value="blue">blue</option>
+				<select id="color"  onchange="javascript:updateStyle();">
+					<option value="Pink"selected>Pink</option>
+					<option value="Deeppink">Deep Pink</option>
+					<option value="salmon">Salmon</option>
 					<option value="red" >red</option>
-					<option value="green" selected="selected">green</option>
-					<option value="yellow">yellow</option>
+					<option value="darkred">Dark Red</option>
+					<option value="orange" >Orange</option>
+					<option value="gold" >Gold</option>
+					<option value="yellow"> yellow </option>
+					<option value="khaki"> Khaki </option>
+					<option value="violet"> Violet </option>
+					<option value="Darkviolet"> Dark Violet </option>
+					<option value="purple">purple</option>
+					<option value="green" >green</option>
+					<option value="forestgreen"> Forest Green </option>
+					<option value="teal"> Teal </option>
+					<option value="aqua"> Aqua </option>
+					<option value="skyblue"> Sky Blue </option>
+					<option value="blue">blue</option>
+					<option value="black" >Black</option>
+					<option value="white">White</option>
+					<option value="rgba(0,0,0,0)",>transparent</option>
+
+					
+					
 				</select>
 			</li>
 			<li>
 				<label>Outline Color: </label>
-				<select id="bg" onchange="refresh()">
-					<option value="purple" selected="selected">purple</option>
-					<option value="rgba(0,0,0,0)">transparent</option>
+				<select id="bg" onchange="javascript:updateStyle();">
+					<option value="Pink">Pink</option>
+					<option value="Deeppink">Deep Pink</option>
+					<option value="salmon">Salmon</option>
+					<option value="red" >red</option>
+					<option value="darkred">Dark Red</option>
+					<option value="orange" >Orange</option>
+					<option value="gold" >Gold</option>
+					<option value="yellow"> yellow </option>
+					<option value="khaki"> Khaki </option>
+					<option value="violet"> Violet </option>
+					<option value="Darkviolet"> Dark Violet </option>
+					<option value="purple">purple</option>
+					<option value="green" >green</option>
+					<option value="forestgreen"> Forest Green </option>
+					<option value="teal"> Teal </option>
+					<option value="aqua"> Aqua </option>
+					<option value="skyblue"> Sky Blue </option>
 					<option value="blue">blue</option>
-					<option value="red">red</option>
-					<option value="green">green</option>
-					<option value="yellow">yellow</option>
+					<option value="black" selected>Black</option>
+					<option value="white">White</option>
+					<option value="rgba(0,0,0,0)",>transparent</option>
 				</select>
 			</li>
 			<li style="clear:both;">
 				<label>OutlineThickness:</label>
-				<input id="size" type="number" min=0 max=5 value=1 onchange="refresh()" />
+				<input id="size" type="number" min=0 max=5 value=1 onchange="javascript:updateStyle();" />
 			</li>
-			
-			<li>
-				<label>Transparency: </label>
-				<input id="myrange_point" type="range" min="00" max="100" step="1" value="0" /> 
-				<p id= "d1"> </p>
-			</li>
-			
-			<button class="remove" onclick="removeLayer()"> Remove </button>
+
 		</ul>
-		
+
 			<i class="fa fa-bug" style="visibility:hidden"></i>
 
 			</div>
-			
-			
+
+
 			<div id="myPoint" class="dropdown-content">
-			<h2>Point</h2>
+			<table> <tr width="100%">
+			<td width="80%"> <h2 align= "left" >Point</h2> </td>
+			<td width="15%"> <a href="#"  align="right" onclick="hide('myPoint')">Close</a> </td> <br>
+			</tr></table>
+			<button onclick="javascript:updatePoint();" value="bye" />
 			<ul>
-			<li>
-				symbol: <div id="select"></div>
-				<div id="pselect"></div>
-			</li>
+			
 			<li>
 				<label>Color: </label>
-				<select onchange="refresh()">
-					<option value="rgba(255,255,255,0.3)">white</option>
-					<option value="rgba(0,0,255,0.3)">blue</option>
-					<option value="rgba(255,0,0,0.3)">red</option>
-					<option value="rgba(0,255,0,0.5)">green</option>
-					<option value="rgba(255,255,0,0.5)">yellow</option>
+				<select  id ="pcolor" onchange="javascript:updatePoint();">
+					<option value="Pink">Pink</option>
+					<option value="Deeppink" selected>Deep Pink</option>
+					<option value="salmon">Salmon</option>
+					<option value="red" >red</option>
+					<option value="darkred">Dark Red</option>
+					<option value="orange" >Orange</option>
+					<option value="gold" >Gold</option>
+					<option value="yellow"> yellow </option>
+					<option value="khaki"> Khaki </option>
+					<option value="violet"> Violet </option>
+					<option value="Darkviolet"> Dark Violet </option>
+					<option value="purple">purple</option>
+					<option value="green" >green</option>
+					<option value="forestgreen"> Forest Green </option>
+					<option value="teal"> Teal </option>
+					<option value="aqua"> Aqua </option>
+					<option value="skyblue"> Sky Blue </option>
+					<option value="blue">blue</option>
+					<option value="black" >Black</option>
+					<option value="white">White</option>
+					<option value="rgba(0,0,0,0)",>transparent</option>
 				</select>
 			</li>
 			<li>
 				<label>size: </label>
-				<select onchange="refresh()">
-					<option value="0">0</option>
-					<option value="1" selected>1</option>
-					<option value="1.5">1.5</option>
-					<option value="2">2</option>
-					<option value="2.5">2.5</option>
-					<option value="3">3</option>
-					<option value="3.5">3.5</option>
-					<option value="4">4</option>
-					<option value="4.5">4.5</option>
-					<option value="5">5</option>
+				<input id="psize" type="number" min=00 max=5 value=2 step=0.5 onchange="javascript:updatePoint();">
+				
+			</li>
+			<li>
+				<label>OutlineColor: </label>
+				<select  id ="polc" onchange="javascript:updatePoint();">
+					<option value="Pink">Pink</option>
+					<option value="Deeppink">Deep Pink</option>
+					<option value="salmon">Salmon</option>
+					<option value="red" >red</option>
+					<option value="darkred">Dark Red</option>
+					<option value="orange" >Orange</option>
+					<option value="gold" >Gold</option>
+					<option value="yellow"> yellow </option>
+					<option value="khaki"> Khaki </option>
+					<option value="violet"> Violet </option>
+					<option value="Darkviolet"> Dark Violet </option>
+					<option value="purple">purple</option>
+					<option value="green">green</option>
+					<option value="forestgreen"> Forest Green </option>
+					<option value="teal"> Teal </option>
+					<option value="aqua"> Aqua </option>
+					<option value="skyblue"> Sky Blue </option>
+					<option value="blue">blue</option>
+					<option value="black" selected>Black</option>
+					<option value="white">White</option>
+					<option value="rgba(0,0,0,0)",>transparent</option>
 				</select>
 			</li>
-			
-			
 			<li>
-				<label>Transparency: </label>
-				<input type="range" min="00" max="100" step="1" value="0" id="myrange_point">
+				<label>size: </label>
+				<input id="pwidth" type="number" min=00 max=5 step=0.5 value=1 onchange="javascript:updatePoint();">
 			</li>
 			
-		
-			
+
+
+
 		</ul>
 			</div>
-		
+
 			<div id="myLine" class="dropdown-content">
-			<h2>Line</h2>
+			<table> <tr width="100%">
+			<td width="80%"> <h2 align= "left" >Line</h2> </td>
+			<td width="15%"> <a href="#"  align="right" onclick="hide('myLine')">Close</a> </td> <br>
+			</tr></table>
+			<button onclick="javascript:updateLine();" value="bye" />
 			<ul>
-				<li>
-					symbol: <div id="select"></div>
-					<div id="pselect"></div>
-				</li>
+	
 				<li>
 					<label>Color: </label>
-					<select onchange="refresh()">
-						<option value="rgba(255,255,255,0.3)">white</option>
-						<option value="rgba(0,0,255,0.3)">blue</option>
-						<option value="rgba(255,0,0,0.3)">red</option>
-						<option value="rgba(0,255,0,0.5)">green</option>
-						<option value="rgba(255,255,0,0.5)">yellow</option>
+					<select id="Lcolor" onchange="javascript:updateLine();">
+						<option value="Pink">Pink</option>
+					<option value="Deeppink">Deep Pink</option>
+					<option value="salmon">Salmon</option>
+					<option value="red" >red</option>
+					<option value="darkred">Dark Red</option>
+					<option value="orange" >Orange</option>
+					<option value="gold" >Gold</option>
+					<option value="yellow"> yellow </option>
+					<option value="khaki"> Khaki </option>
+					<option value="violet"> Violet </option>
+					<option value="Darkviolet"> Dark Violet </option>
+					<option value="purple">purple</option>
+					<option value="green">green</option>
+					<option value="forestgreen"> Forest Green </option>
+					<option value="teal"> Teal </option>
+					<option value="aqua"> Aqua </option>
+					<option value="skyblue"  selected> Sky Blue </option>
+					<option value="blue">blue</option>
+					<option value="black" >Black</option>
+					<option value="white">White</option>
+					<option value="rgba(0,0,0,0)",>transparent</option>
 					</select>
 				</li>
 				<li>
 					<label>Thickness: </label>
-					<select onchange="refresh()">
-						<option value="0">0</option>
-						<option value="1" selected>1</option>
-						<option value="1.5">1.5</option>
-						<option value="2">2</option>
-						<option value="2.5">2.5</option>
-						<option value="3">3</option>
-						<option value="3.5">3.5</option>
-						<option value="4">4</option>
-						<option value="4.5">4.5</option>
-						<option value="5">5</option>
-					</select>
-				</li>
+					<input id="Lwidth" type="number" min=00 max=5 value=1 step=0.5 onchange="javascript:updateLine();">
 				
-				
-				<li>
-					<label>Transparency: </label>
-					<input type="range" min="00" max="100" step="1" value="0" id="myrange_point">
 				</li>
+
+
 			</ul>
 				</div>
-			
+
 		</div>
 
 		<script src="js/GeoVogatic.js" type="text/javascript"></script>
-	</body>	
+	</body>
 </html>
