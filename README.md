@@ -9,11 +9,11 @@ By default, styling options for vector layers are set, and so this application w
 # Authors
 Aarthi Baalamurugan – (baaa@hs-karlsruhe.de)
 
-Aneeqa Abrar – (@hs-karlsruhe.de)
+Aneeqa Abrar – (aban1011@hs-karlsruhe.de)
 
-Aya Al-Hyari – (@hs-karlsruhe.de)
+Aya Al-Hyari – (moay1013@hs-karlsruhe.de)
 
-Asitha Manage – (@hs-karlsruhe.de)
+Asitha Manage – (maas@hs-karlsruhe.de)
 
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
