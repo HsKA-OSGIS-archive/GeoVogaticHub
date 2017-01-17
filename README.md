@@ -7,7 +7,7 @@ OpenLayers3 is an open source JavaScript library which allows people to load, di
 By default, styling options for vector layers are set, and so this application was built to provide users with options to style a vector layer in different ways. This is accomplished by first allowing vector files to be loaded and displayed by dragging and dropping over the web interface, and secondly, providing the user with options to change style properties such as colour, size, line/border width and transparency.
 
 # Authors
-Aarthi Baalamurugan – (baaa@hs-karlsruhe.de)
+Aarthi Baalamurugan – (baaa1013@hs-karlsruhe.de)
 
 Aneeqa Abrar – (aban1011@hs-karlsruhe.de)
 
@@ -18,7 +18,7 @@ Asitha Manage – (maas@hs-karlsruhe.de)
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
 # Data 
-Any vector layer (points, lines and polygons), in GeoJSON and GML format are accepted by this application, however, GeoJSON vector files work best. 
+Any vector layer (points, lines and polygons), in GeoJSON and GML version 3.1.1 format are accepted by this application, however, GeoJSON vector files work best. 
 A link to download sample data files has been provided on the upper right corner of the page.
 
 # Layout and Procedure
