@@ -21,6 +21,9 @@ William Odoi – (odwi1011@hs-karlsruhe.de)
 Any vector layer (points, lines and polygons), in GeoJSON and GML version 3.1.1 format are accepted by this application, however, GeoJSON vector files work best. 
 A link to download sample data files has been provided on the upper right corner of the page.
 
+# Languages used
+JavaScript and CSS
+
 # Layout and Procedure
 A vector layer must be dropped over the map interface only. 
 A button appears at the bottom of the map which when clicked opens a styling interface below it. 
@@ -32,7 +35,7 @@ A help button has been provided at the bottom right corner which gives further i
 Please see the file called ‘LICENSE’
 
 # Installation
-to work with this code, download add files, 
-seperate all js files into a folder names js
-all CSS files into a new folder named CSS
-and the logo is set into a folder called assets
+To work with this code, download all files and seperate them in the following order:
+all js files should be placed into a folder names js,
+all CSS files should be placed into a new folder named CSS,
+and the logo should be place into a folder called assets.
