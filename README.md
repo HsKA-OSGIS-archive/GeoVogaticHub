@@ -36,6 +36,10 @@ Please see the file called ‘LICENSE’
 
 # Installation
 To work with this code, download all files and seperate them in the following order:
-all js files should be placed into a folder names js,
-all CSS files should be placed into a new folder named CSS,
-and the logo should be place into a folder called assets.
+	
+	- all JavaScript files should be placed into a folder names js,
+	- all CSS files should be placed into a new folder named CSS,
+	- the logo should be place into a folder called assets.
+
+
+
