@@ -12,7 +12,9 @@ Aarthi Baalamurugan – (baaa@hs-karlsruhe.de)
 Aneeqa Abrar – (@hs-karlsruhe.de)
 
 Aya Al-Hyari – (@hs-karlsruhe.de)
+
 Asitha Manage – (@hs-karlsruhe.de)
+
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
 # Data 
