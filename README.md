@@ -8,7 +8,9 @@ By default, styling options for vector layers are set, and so this application w
 
 # Authors
 Aarthi Baalamurugan – (baaa@hs-karlsruhe.de)
+
 Aneeqa Abrar – (@hs-karlsruhe.de)
+
 Aya Al-Hyari – (@hs-karlsruhe.de)
 Asitha Manage – (@hs-karlsruhe.de)
 William Odoi – (odwi1011@hs-karlsruhe.de)
