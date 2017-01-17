@@ -13,7 +13,7 @@ Aneeqa Abrar – (aban1011@hs-karlsruhe.de)
 
 Aya Al-Hyari – (moay1013@hs-karlsruhe.de)
 
-Asitha Manage – (maas@hs-karlsruhe.de)
+Asitha Manage – (heas1011@hs-karlsruhe.de)
 
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
