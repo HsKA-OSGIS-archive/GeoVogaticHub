@@ -18,7 +18,7 @@ Asitha Kavinda – (heas1011@hs-karlsruhe.de)
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
 # Data 
-Any vector layer (points, lines and polygons), in GeoJSON and GML version 3.1.1 format are accepted by this application, however, GeoJSON vector files work best. 
+Any vector layer (points, lines and polygons), in GeoJSON is accepted by this application. 
 A link to download sample data files has been provided on the upper right corner of the page.
 
 # Languages used
@@ -35,7 +35,7 @@ The layer can be deleted by clicking on the ‘X’ located at the top right cor
 A help button has been provided at the bottom right corner which gives further information. A link (https://youtu.be/8hinM0KdRU0) has been provided in the help interface which connects to a YouTube video, interactively demonstrating to a user how the system runs.
 
 # Licensing
-Please see the file called ‘LICENSE’
+Please see the file called ‘LICENSE’.
 
 # Installation
 To work with this code, download all files and separate them in the following order:
