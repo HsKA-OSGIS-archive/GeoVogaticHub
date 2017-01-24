@@ -8,7 +8,10 @@
 		<script type="text/javascript" src="js/fillpatternstyle.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" type="text/css" />
-
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+		<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />		
 		<title>OpenLayers 3</title>
 
 	</head>
@@ -17,32 +20,33 @@
 
 		<table>
 			<tr>
-				<td><img src="assets/logo.png" height="80" width="80"></td>
-				<td><h1>GeoVogatic</h1></td>
+				<td width="10%"><img src="assets/logo.png" height="80" width="80"></td>
+				<td width="90%"><h1>GeoVogatic</h1></td>
+				<td width="10%"> <a href="https://drive.google.com/open?id=0By11zbd3JFnvWmtMVndQU3ZSOVE" target="_blank"> 
+				<img src="assets/download-icon.jpg" height="60" width="60"> </a> </td>
 			</tr>
+			
 		</table>
 		<!-- Adding the map -->
 		<div id="map" class="map"></div>
 		
 		<!-- Adding help buttonn -->
-		<button id="HelpButton" class = "Help">?</button>
-		<!-- Popup -->
-		<div id="HelpPopup" class="Popup">
-			<!-- Popup-content -->
-			<div class="Popup-content">
-				<span class="close">×</span>
-				<h1 style = "font-size:24px;">Introduction</h1>
-				<p style = "font-size:18px;">This help file was written to show users the procedure, options and capabilities of the assisted styling application in Open Layers 3, created by Geovogatic.</p>
+		<button id="HelpWind" value="Show Popup" class = "Help" >?</button>
+		<div id="dialog" style="display: none" align="center">
+		<h3 style = "font-size:15px;">Youtube Demo</h3>
+				<p style = "font-size:13px;"><a href ="https://youtu.be/8hinM0KdRU0" target="_blank"> https://youtu.be/8hinM0KdRU0 </a></p>
+			<h1 style = "font-size:24px;">Introduction</h1>
+				<p style = "font-size:18px;">This help file was written to show users the procedure, options and capabilities of the assisted styling application in Open Layers 3, created by <b style="color:red"> Geovogatic. </b> </p>
 				<h2 style = "font-size:24px;">How it works</h2>
 				<p style = "font-size:18px;">A new button/layer appears whenever a file is dragged and dropped over the interface. Clicking on this layer opens a pop-up menu with the designated styling options for that layer depending on geometry type. This application supports point, line and polygon geometry types. <br><br>
 				Below are the geometries and the styling options (what can be changed) associated to each of them.<br><br>
 				Point 	: Size, fill colour, outline colour and thickness, it can also be set to transparent<br>
 				Line 	: Thickness, colour and can also be set to transparent<br>
 				Polygon : Border thickness, border colour, fill colour, and transparent option </p>
+				<p style = "font-size:18px;"> The download Icon can be used to obtain example files of Geojson shapefiles. </p>
+				
 				<h3 style = "font-size:24px;">Important Note</h3>
 				<p style = "font-size:18px;">Only default OL3 geographic file formats are supported. Information about these formats can be found on the OL3 website.</p>
-
-			</div>
 
 		</div>
 		
