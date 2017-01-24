@@ -7,13 +7,13 @@ OpenLayers3 is an open source JavaScript library which allows people to load, di
 By default, styling options for vector layers are set, and so this application was built to provide users with options to style a vector layer in different ways. This is accomplished by first allowing vector files to be loaded and displayed by dragging and dropping over the web interface, and secondly, providing the user with options to change style properties such as colour, size, line/border width and transparency.
 
 # Authors
-Aarthi Baalamurugan – (baaa1013@hs-karlsruhe.de)
+Aarthi Balamurugan – (baaa1013@hs-karlsruhe.de)
 
 Aneeqa Abrar – (aban1011@hs-karlsruhe.de)
 
-Aya Al-Hyari – (moay1013@hs-karlsruhe.de)
+Ayah Al-Hyari – (moay1013@hs-karlsruhe.de)
 
-Asitha Manage – (heas1011@hs-karlsruhe.de)
+Asitha Kavinda – (heas1011@hs-karlsruhe.de)
 
 William Odoi – (odwi1011@hs-karlsruhe.de)
 
@@ -32,7 +32,7 @@ Options are given to style the layer as desired.
 
 The layer can be deleted by clicking on the ‘X’ located at the top right corner of every button.
 
-A help button has been provided at the bottom right corner which gives further information. A link has been provided in the help interface which connects to a YouTube video, interactively demonstrating to a user how the system runs.
+A help button has been provided at the bottom right corner which gives further information. A link (https://youtu.be/8hinM0KdRU0) has been provided in the help interface which connects to a YouTube video, interactively demonstrating to a user how the system runs.
 
 # Licensing
 Please see the file called ‘LICENSE’
