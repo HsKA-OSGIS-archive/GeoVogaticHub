@@ -1,4 +1,4 @@
-# GeoVogaticHub
+# GeoVogatic
 Repository for GeoVogatic, WS 2016/17, January 2017, HSKA.
 
 
