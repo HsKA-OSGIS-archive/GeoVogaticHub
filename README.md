@@ -31,6 +31,9 @@ Options are given to style the layer as desired.
 The layer can be deleted by clicking on the ‘X’ located at the top right corner of every button.
 A help button has been provided at the bottom right corner which gives further information.
 
+# Further resources
+A link has been provided in the help interface which connects to a Youtube video, interactively demonstrating to a user how the system runs.
+
 # Licensing
 Please see the file called ‘LICENSE’
 
