@@ -2,11 +2,17 @@ var temp;
 var i = 1;
 a=0;
 
+var vectorSourceObj = {}; // to keep track of vectorSource
+var layerObj = {}; // to keep track of layer
+var clickedID;
+
+// to close the dropdown menu
 function hide(target) {
     document.getElementById(target).style.display = 'none';
 }
+
 //Function for button title
-function button_style(temp) {
+function button_style(temp,id) {
 	switch(temp){
 		case 'Point':
 		case 'MultiPoint':{
@@ -14,6 +20,7 @@ function button_style(temp) {
 				var buttonlayer = document.createElement('button');
 					buttonlayer.setAttribute('class', 'layers');
 					buttonlayer.innerHTML = 'Point';
+					buttonlayer.id = id;
 					
 					$("buttonlayer").click(function() {
 						var $this = $(this);
@@ -28,29 +35,44 @@ function button_style(temp) {
 					});
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", function (){
+					buttonlayer.addEventListener("click", function (e){						
+
+					//to keep track of the button clicked & zooming to location
+						clickedID = e.srcElement.id;
+					    map.getView().fit(
+					    vectorSourceObj[clickedID].getExtent(),(map.getSize()));
+						
 						if (temp == 'Point' || temp == 'MultiPoint' )
 						{	$('#myPoint').css('display','block');
 						    $('#myLine').css('display','none');
 						    $('#myPolygon').css('display','none');
 						}
 					});
+
+					//window.layer.setStyle(style);
 			//remove button and function
 				var remove = document.createElement('button');
 					remove.setAttribute('class', 'remo');
 					remove.innerHTML = 'X';
+					remove.id = id + "-rmv";
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(remove);
-					remove.addEventListener("click", function (){
+					remove.addEventListener("click", function (e){
+						
 						var list=document.getElementsByClassName("remo");
 							list = [].slice.call(list); 
 						var a = list.indexOf(remove);
 							console.log(a);
-						
+							
+						delete vectorSourceObj[e.srcElement.id.split("-")[0]];
+						delete layerObj[e.srcElement.id.split("-")[0]];
+												
 						map.removeLayer(map.getLayers().item(a+1));
 						$( ".layers" )[a].remove();
 						$(".remo")[a].remove();
 						$("#myPoint").hide();
+						
+						
 			       });
 				i++;
 					}
@@ -62,10 +84,17 @@ function button_style(temp) {
 				var buttonlayer = document.createElement('button');
 					buttonlayer.setAttribute('class', 'layers');
 					buttonlayer.innerHTML = 'Line';
+					buttonlayer.id = id;
 
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", function (){
+					buttonlayer.addEventListener("click", function (e){
+						
+						//to keep track of the button clicked.
+						clickedID = e.srcElement.id;
+						map.getView().fit(
+					    vectorSourceObj[clickedID].getExtent(),(map.getSize()));
+						
 						if ( temp == 'LineString' || temp == 'MultiLineString')
 						{    $('#myPoint').css('display','none');
 							 $('#myLine').css('display','block');
@@ -77,13 +106,17 @@ function button_style(temp) {
 				var remove = document.createElement('button');
 					remove.setAttribute('class', 'remo');
 					remove.innerHTML = 'X';
+					remove.id = id + "-rmv";
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(remove);
-					remove.addEventListener("click", function (){
+					remove.addEventListener("click", function (e){
 						var list=document.getElementsByClassName("remo");
 							list = [].slice.call(list); 
 						var a = list.indexOf(remove);
 							console.log(a);
+							
+						delete vectorSourceObj[e.srcElement.id.split("-")[0]];
+						delete layerObj[e.srcElement.id.split("-")[0]];
 						
 						map.removeLayer(map.getLayers().item(a+1));
 						$( ".layers" )[a].remove();
@@ -101,10 +134,17 @@ function button_style(temp) {
 				var buttonlayer = document.createElement('button');
 					buttonlayer.setAttribute('class', 'layers');
 					buttonlayer.innerHTML = 'Polygon';
+					buttonlayer.id = id;
 
 				var div = document.getElementsByTagName('div')[0];
 					div.appendChild(buttonlayer);
-					buttonlayer.addEventListener("click", function (){
+					buttonlayer.addEventListener("click", function (e){
+						
+					//to keep track of the button clicked.
+						clickedID = e.srcElement.id;	
+					    map.getView().fit(
+					    vectorSourceObj[clickedID].getExtent(),(map.getSize()));
+						
 					if ( temp == 'MultiPolygon' || temp == 'Polygon' )
 					{        $('#myPoint').css('display','none');
 							 $('#myLine').css('display','none');
@@ -118,13 +158,17 @@ function button_style(temp) {
 					var remove = document.createElement('button');
 						remove.setAttribute('class', 'remo');
 						remove.innerHTML = 'X';
+						remove.id = id + "-rmv";
 					var div = document.getElementsByTagName('div')[0];
 						div.appendChild(remove);
-						remove.addEventListener("click", function (){
+						remove.addEventListener("click", function (e){
 						var list=document.getElementsByClassName("remo");
 							list = [].slice.call(list); 
 						var a = list.indexOf(remove);
 						console.log(a);
+						
+						delete vectorSourceObj[e.srcElement.id.split("-")[0]];
+						delete layerObj[e.srcElement.id.split("-")[0]];
 						
 						map.removeLayer(map.getLayers().item(a+1));
 						$( ".layers" )[a].remove();
@@ -207,7 +251,6 @@ function button_style(temp) {
     var dragAndDropInteraction = new ol.interaction.DragAndDrop({
         formatConstructors: [
 			ol.format.GeoJSON,
-			ol.format.GML
 			]
 		});
 
@@ -233,48 +276,38 @@ function button_style(temp) {
 
 //  Drag and Drop interaction Function => describes how to respond once the file is dragged and dropped
 	dragAndDropInteraction.on('addfeatures', function(event) {
-		i = 1;
-		window.features = event.features;
-	    button_style(event.features[0].getGeometry().getType()); // Creates a button
-        window.vectorSource = new ol.source.Vector({
+	    i = 1;
+		var id = makeid();
+
+		//window.features = event.features;
+	    button_style(event.features[0].getGeometry().getType(),id); // Creates a button
+        vectorSourceObj[id] = new ol.source.Vector({
 			features: event.features
 			});
-		window.layer =new ol.layer.Vector({
-			source: vectorSource,
+		layerObj[id] =new ol.layer.Vector({
+			source: vectorSourceObj[id],
 			style: styleFunction,
 			});
-        map.addLayer(layer);
+        map.addLayer(layerObj[id]);
         map.getView().fit(
-            vectorSource.getExtent(),(map.getSize()));
+            vectorSourceObj[id].getExtent(),(map.getSize()));
 
 
 	});
 
-// Get the popup for the help button 
-		var Popup = document.getElementById('HelpPopup');
-
-		// Get the button that opens the popup
-		var btn = document.getElementById("HelpButton");
-
-		// Get the <span> element that closes the popup
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks the button, open the popup
-		btn.onclick = function() {
-		Popup.style.display = "block";
-		}
-
-		// When the user clicks on <span> (x), close the popup
-		span.onclick = function() {
-		Popup.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the popup, close it
-		window.onclick = function(event) {
-		if (event.target == Popup) {
-			Popup.style.display = "none";
-		}
-		};
+//Help window function
+        $(function () {
+            $("#dialog").dialog({
+                modal: true,
+                autoOpen: false,
+                title: "Help Window",
+                width: 300,
+                height: 250
+            });
+            $("#HelpWind").click(function () {
+                $('#dialog').dialog('open');
+            });
+        });
 
 
 // function to change the style of polygons 
@@ -289,23 +322,23 @@ function button_style(temp) {
 					color: $('#color').val()
 				});
 				
-							
+				
 				var style = new ol.style.Style({
 					fill: polystyle,
 					stroke: polystroke,
 				});
 					
 
-                window.layer.setStyle(style);
+               layerObj[clickedID].setStyle(style);
+				
                map.getView().fit(
-               vectorSource.getExtent(),(map.getSize()));
+               vectorSourceObj[clickedID].getExtent(),(map.getSize()));
 
-	};
+	}; 
 // function to change the style of points
 	function updatePoint() {
 		var ppfill = new ol.style.Fill ({
 			color : $('#pcolor').val()
-			//opacity: 
 		});
 		
 		var ppstroke = new ol.style.Stroke ({
@@ -315,21 +348,19 @@ function button_style(temp) {
 		
 		var pp = new ol.style.Circle ({
 				fill : ppfill,
+				
 		
 				radius: $('#psize').val(),
 				stroke : ppstroke,
 		});
-		
-		
-		
+
 		var style = new ol.style.Style({
 			image: pp,
 		});
-		
-		window.layer.setStyle(style);
+		layerObj[clickedID].setStyle(style);
 		map.getView().fit(
-        vectorSource.getExtent(),(map.getSize()));
-	};
+        vectorSourceObj[clickedID].getExtent(),(map.getSize()));
+	}; 
 // function to change the style of lines	
 	function updateLine() {
 		
@@ -343,9 +374,20 @@ function button_style(temp) {
 		});
 		linestyle,
 		
-		window.layer.setStyle(style3);
+		layerObj[clickedID].setStyle(style3);
 		map.getView().fit(
-        vectorSource.getExtent(),(map.getSize()));
+        vectorSourceObj[clickedID].getExtent(),(map.getSize()));
 	};
 	
 	
+// to make random id 
+function makeid()
+{
+	var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
