@@ -38,7 +38,7 @@ A help button has been provided at the bottom right corner which gives further i
 Please see the file called ‘LICENSE’
 
 # Installation
-To work with this code, download all files and seperate them in the following order:
+To work with this code, download all files and separate them in the following order:
 	
 	- all JavaScript files should be placed into a folder names js,
 	- all CSS files should be placed into a new folder named CSS,
